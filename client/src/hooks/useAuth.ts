@@ -17,25 +17,47 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
 
+  // Function to check authentication state
+  const checkAuth = async () => {
+    try {
+      const res = await fetch('/api/auth/check', {
+        credentials: 'include',
+      });
+      
+      if (res.ok) {
+        const userData = await res.json();
+        setUser(userData);
+      } else {
+        setUser(null);
+      }
+    } catch (error) {
+      console.error('Authentication check failed', error);
+      setUser(null);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Check auth on component mount
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const res = await fetch('/api/auth/check', {
-          credentials: 'include',
-        });
-        
-        if (res.ok) {
-          const userData = await res.json();
-          setUser(userData);
-        }
-      } catch (error) {
-        console.error('Authentication check failed', error);
-      } finally {
-        setIsLoading(false);
+    checkAuth();
+    
+    // Also check auth when window gets focus
+    const handleFocus = () => checkAuth();
+    window.addEventListener('focus', handleFocus);
+    
+    // Handle storage events for cross-tab communication
+    const handleStorageChange = async (e: StorageEvent) => {
+      if (e.key === 'auth_state_change') {
+        await checkAuth();
       }
     };
-
-    checkAuth();
+    window.addEventListener('storage', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   const login = async (username: string, password: string) => {
@@ -43,11 +65,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const res = await apiRequest('POST', '/api/auth/login', { username, password });
       const userData = await res.json();
       setUser(userData);
+      
+      // Notify other tabs about the auth state change
+      localStorage.setItem('auth_state_change', Date.now().toString());
+      
       toast({
         title: "Login successful",
         description: `Welcome back, ${userData.username}!`,
       });
     } catch (error) {
+      console.error('Login error:', error);
       toast({
         variant: "destructive",
         title: "Login failed",
@@ -62,6 +89,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const res = await apiRequest('POST', '/api/auth/register', { username, password });
       const userData = await res.json();
       setUser(userData);
+      
+      // Notify other tabs about the auth state change
+      localStorage.setItem('auth_state_change', Date.now().toString());
+      
       toast({
         title: "Registration successful",
         description: `Welcome, ${userData.username}!`,
@@ -80,6 +111,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       await apiRequest('POST', '/api/auth/logout', {});
       setUser(null);
+      
+      // Notify other tabs about the auth state change
+      localStorage.setItem('auth_state_change', Date.now().toString());
+      
       toast({
         title: "Logged out",
         description: "You have been successfully logged out",
