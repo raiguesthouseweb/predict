@@ -1,7 +1,17 @@
 import { getStadiumMatches } from "../csvParser";
 
+interface StadiumAnalysisResult {
+  teamAWinPercentage: number;
+  teamBWinPercentage: number;
+  teamAMatches?: number;
+  teamBMatches?: number;
+  teamAWins?: number;
+  teamBWins?: number;
+  detailedLogs?: string[];
+}
+
 /**
- * Analyzes team performance at a specific stadium
+ * Analyzes team performance at a specific stadium with detailed logs
  */
 export async function analyzeStadium(
   teamA: string,
@@ -9,16 +19,25 @@ export async function analyzeStadium(
   stadium: string,
   matchFormat: string,
   gender: string
-): Promise<{ teamAWinPercentage: number; teamBWinPercentage: number }> {
+): Promise<StadiumAnalysisResult> {
+  const detailedLogs: string[] = [];
+  
   try {
     // Get all matches at the stadium
     const stadiumMatches = await getStadiumMatches(stadium, matchFormat, gender);
+    detailedLogs.push(`Found ${stadiumMatches.length} matches at ${stadium} for ${matchFormat} (${gender})`);
     
     if (!stadiumMatches || stadiumMatches.length === 0) {
       // If no stadium data, return neutral 50/50
+      detailedLogs.push(`No historical data found for ${stadium}. Using neutral 50/50 prediction baseline.`);
       return {
         teamAWinPercentage: 50,
-        teamBWinPercentage: 50
+        teamBWinPercentage: 50,
+        teamAMatches: 0,
+        teamBMatches: 0,
+        teamAWins: 0,
+        teamBWins: 0,
+        detailedLogs
       };
     }
     
@@ -31,6 +50,9 @@ export async function analyzeStadium(
     const teamBMatches = stadiumMatches.filter(match => 
       match.teamA === teamB || match.teamB === teamB
     );
+    
+    detailedLogs.push(`${teamA} has played ${teamAMatches.length} matches at this venue`);
+    detailedLogs.push(`${teamB} has played ${teamBMatches.length} matches at this venue`);
     
     // Calculate Team A win percentage at this stadium
     let teamAWins = 0;
@@ -45,6 +67,9 @@ export async function analyzeStadium(
           teamAWins++;
         }
       });
+      detailedLogs.push(`${teamA} has won ${teamAWins} out of ${teamATotal} matches at this venue (${Math.round((teamAWins / teamATotal) * 100)}% win rate)`);
+    } else {
+      detailedLogs.push(`${teamA} has not played any matches at this venue`);
     }
     
     // Calculate Team B win percentage at this stadium
@@ -60,6 +85,9 @@ export async function analyzeStadium(
           teamBWins++;
         }
       });
+      detailedLogs.push(`${teamB} has won ${teamBWins} out of ${teamBTotal} matches at this venue (${Math.round((teamBWins / teamBTotal) * 100)}% win rate)`);
+    } else {
+      detailedLogs.push(`${teamB} has not played any matches at this venue`);
     }
     
     // Calculate win percentages
@@ -83,23 +111,48 @@ export async function analyzeStadium(
       const normalizedTeamA = Math.round((weightedTeamA / totalWeighted) * 100);
       const normalizedTeamB = 100 - normalizedTeamA;
       
+      detailedLogs.push(`Weighted stadium advantage: ${teamA} ${normalizedTeamA}% - ${teamB} ${normalizedTeamB}%`);
+      
       return {
         teamAWinPercentage: normalizedTeamA,
-        teamBWinPercentage: normalizedTeamB
+        teamBWinPercentage: normalizedTeamB,
+        teamAMatches: teamATotal,
+        teamBMatches: teamBTotal,
+        teamAWins,
+        teamBWins,
+        detailedLogs
       };
     }
     
+    if (teamATotal === 0 && teamBTotal === 0) {
+      detailedLogs.push(`Neither team has played at this venue. Using neutral 50/50 prediction baseline.`);
+    } else if (teamATotal === 0) {
+      detailedLogs.push(`${teamA} has not played at this venue, using only ${teamB}'s performance data.`);
+    } else if (teamBTotal === 0) {
+      detailedLogs.push(`${teamB} has not played at this venue, using only ${teamA}'s performance data.`);
+    }
+    
+    detailedLogs.push(`Stadium advantage: ${teamA} ${teamAWinPercentage}% - ${teamB} ${teamBWinPercentage}%`);
+    
     return {
       teamAWinPercentage,
-      teamBWinPercentage
+      teamBWinPercentage,
+      teamAMatches: teamATotal,
+      teamBMatches: teamBTotal,
+      teamAWins,
+      teamBWins,
+      detailedLogs
     };
   } catch (error) {
     console.error("Error in stadium analysis:", error);
+    detailedLogs.push(`Error analyzing stadium data: ${error}`);
+    detailedLogs.push(`Using neutral 50/50 prediction baseline due to error.`);
     
     // Return neutral 50/50 in case of error
     return {
       teamAWinPercentage: 50,
-      teamBWinPercentage: 50
+      teamBWinPercentage: 50,
+      detailedLogs
     };
   }
 }

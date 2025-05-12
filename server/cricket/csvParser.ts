@@ -130,8 +130,25 @@ export async function getMatchFilename(format: string, gender: string): Promise<
       entry.Gendre.toLowerCase() === gender.toLowerCase() &&
       entry["File Name"]
   );
-  
-  return matchEntry ? matchEntry["File Name"] : null;
+
+  if (matchEntry) {
+    return matchEntry["File Name"];
+  } else {
+    // Log the available formats and genders for debugging
+    console.log('Available matches in index:');
+    indexData.forEach(entry => {
+      console.log(`Format: ${entry.Format}, Gender: ${entry.Gendre}, File: ${entry["File Name"]}`);
+    });
+    
+    // Fallback to direct file mapping based on format
+    if (format.toLowerCase() === 'odi') {
+      return 'ODI.csv';
+    } else if (format.toLowerCase() === 't20') {
+      return 'T20.csv';
+    }
+    
+    return null;
+  }
 }
 
 // Get match data for specific format and gender
