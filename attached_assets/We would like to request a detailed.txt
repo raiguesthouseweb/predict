@@ -1,0 +1,45 @@
+We would like to request a detailed reference document for the "Guru Gyan rAi" web application. This file will serve as the central technical guide for our team and future contributors.
+
+The document should include the following:
+
+Complete File Structure
+
+List all files and directories used in the project with their relative paths.
+
+Mention the purpose of each file.
+
+Code Description
+
+For every file, describe what type of code is inside (e.g., React component, data parser, utility function).
+
+Clearly explain the technologies/libraries used (e.g., React, TailwindCSS, Express, CSV parser, etc.).
+
+Project Architecture
+
+Explain the overall structure: frontend/backend separation, key modules, and flow of data.
+
+Describe how predictions are processed and served.
+
+UI Reference
+
+For all visible text or labels in the UI, specify:
+
+In which file and which line (if possible) the text exists.
+
+How to change its styling (especially color) without reading the entire codebase.
+
+Mention Tailwind or CSS classes used for text styling.
+
+Prediction Flow
+
+Step-by-step description of how user input flows from the form to the backend and returns a result.
+
+Include how CSV files are selected and processed dynamically via index.csv.
+
+Customization Guide
+
+Instructions for editing styles, fonts, layouts, and color themes.
+
+Mention reusable components or layout wrappers if any.
+
+Please ensure the file is beginner-friendly, written in plain and professional language, and includes enough detail to help any future developer navigate and maintain the codebase efficiently.
