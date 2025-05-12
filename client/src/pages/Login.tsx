@@ -101,9 +101,12 @@ export default function Login() {
                       Remember me
                     </label>
                   </div>
-                  <Link href="/login">
-                    <a className="text-sm text-primary hover:underline">Forgot password?</a>
-                  </Link>
+                  <span 
+                    className="text-sm text-primary hover:underline cursor-pointer"
+                    onClick={() => setLocation('/login')}
+                  >
+                    Forgot password?
+                  </span>
                 </div>
                 
                 <Button 
@@ -116,9 +119,12 @@ export default function Login() {
                 
                 <div className="text-center text-sm text-muted-foreground mt-4">
                   Don't have an account?{' '}
-                  <Link href="/register">
-                    <a className="text-primary hover:underline">Register</a>
-                  </Link>
+                  <span 
+                    className="text-primary hover:underline cursor-pointer"
+                    onClick={() => setLocation('/register')}
+                  >
+                    Register
+                  </span>
                 </div>
               </form>
             </Form>

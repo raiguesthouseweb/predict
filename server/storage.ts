@@ -46,6 +46,32 @@ export class MemStorage implements IStorage {
     this.userId = 1;
     this.predictionId = 1;
     this.messageId = 1;
+    
+    // Set up initial admin user
+    this.setupInitialAdminUser();
+  }
+  
+  private async setupInitialAdminUser() {
+    try {
+      // Check if we have any users
+      if (this.users.size === 0) {
+        // Import functions needed to create admin
+        const { createUser } = await import('./auth/passport');
+        
+        // Create admin user with default credentials
+        const adminUser = await createUser({
+          username: 'admin',
+          password: 'admin123',
+          isAdmin: true
+        });
+        
+        console.log('Initial admin user created:');
+        console.log('Username: admin');
+        console.log('Password: admin123');
+      }
+    } catch (error) {
+      console.error('Failed to create admin user:', error);
+    }
   }
 
   // User operations
