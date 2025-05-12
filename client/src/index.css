@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 36% 10%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 190 100% 50%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 212 25% 15%;
+    --input: 212 25% 15%;
+    --ring: 191 97% 77%;
+    --radius: 0.5rem;
+
+    /* Chart colors */
+    --chart-1: 191 97% 77%;
+    --chart-2: 217 91% 60%;
+    --chart-3: 250 95% 76%;
+    --chart-4: 142 90% 61%;
+    --chart-5: 321 70% 69%;
+
+    /* Sidebar colors */
+    --sidebar-background: 222 47% 11%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 191 97% 77%;
+    --sidebar-primary-foreground: 222 47% 11%;
+    --sidebar-accent: 217 33% 17%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 212 25% 15%;
+    --sidebar-ring: 191 97% 77%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply antialiased bg-background text-foreground;
+    font-family: 'Roboto Mono', monospace;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', sans-serif;
+  }
+}
+
+@layer utilities {
+  .animated-progress-bar {
+    @apply relative overflow-hidden;
+  }
+  
+  .animated-progress-bar::after {
+    content: "";
+    @apply absolute top-0 left-0 h-full w-[30%] bg-white/20;
+    animation: progress-animation 2s linear infinite;
+  }
+
+  @keyframes progress-animation {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(400%); }
+  }
+
+  .neon-glow {
+    animation: glow 2s ease-in-out infinite;
+  }
+
+  @keyframes glow {
+    0%, 100% { 
+      text-shadow: 0 0 5px hsl(var(--primary)), 
+                  0 0 10px hsl(var(--primary)), 
+                  0 0 15px hsl(var(--primary));
+    }
+    50% { 
+      text-shadow: 0 0 2px hsl(var(--primary)), 
+                  0 0 5px hsl(var(--primary)), 
+                  0 0 8px hsl(var(--primary));
+    }
+  }
+
+  .radar-scan {
+    @apply relative w-[150px] h-[150px] rounded-full overflow-hidden;
+    background: radial-gradient(circle, hsla(var(--primary) / 0.1) 0%, hsla(var(--primary) / 0) 70%);
+  }
+  
+  .radar-beam {
+    @apply absolute top-0 left-1/2 w-1/2 h-full;
+    background: linear-gradient(90deg, hsla(var(--primary) / 0) 0%, hsla(var(--primary) / 0.2) 100%);
+    transform-origin: left center;
+    animation: radar 3s linear infinite;
+  }
+
+  @keyframes radar {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .typing-animation {
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: .15em;
+    border-right: .15em solid hsl(var(--primary));
+    animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+  }
+  
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: hsl(var(--primary)); }
+  }
+}
