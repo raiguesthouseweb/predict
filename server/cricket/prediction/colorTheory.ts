@@ -89,7 +89,14 @@ function findTeamColor(teamName: string, teamColors: TeamColor[]): TeamColor | u
 
 // Helper: Find day color from day of the week
 function findDayColor(dayOfWeek: string, dayColors: DayColor[]): DayColor | undefined {
-  return dayColors.find(color => color.day.toLowerCase() === dayOfWeek.toLowerCase());
+  if (!dayOfWeek || !dayColors || dayColors.length === 0) {
+    return undefined;
+  }
+  return dayColors.find(color => 
+    color.day && 
+    dayOfWeek && 
+    color.day.toLowerCase() === dayOfWeek.toLowerCase()
+  );
 }
 
 // Helper: Get day of the week from date
@@ -146,22 +153,35 @@ function calculateColorClash(color1?: string, color2?: string): number | null {
 
 // Helper: Convert hex color to RGB
 function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
-  // Remove # if present
-  hex = hex.replace('#', '');
+  if (!hex) return null;
   
-  // Handle shorthand hex
-  if (hex.length === 3) {
-    hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+  try {
+    // Extract hex code from formats like "Blue: 80% (#078BDC)"
+    const hexMatch = hex.match(/#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})/);
+    if (hexMatch) {
+      hex = hexMatch[0];
+    }
+    
+    // Remove # if present
+    hex = hex.replace('#', '');
+    
+    // Handle shorthand hex
+    if (hex.length === 3) {
+      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+    
+    const result = /^([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result
+      ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16)
+        }
+      : null;
+  } catch (error) {
+    console.error("Error parsing hex color:", error);
+    return null;
   }
-  
-  const result = /^([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-      }
-    : null;
 }
 
 // Helper: Calculate color distance (0-1 scale)

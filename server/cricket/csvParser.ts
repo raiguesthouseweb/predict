@@ -260,20 +260,29 @@ export async function getCityFromStadium(stadium: string): Promise<string> {
   
   for (const format of formats) {
     for (const gender of genders) {
-      const matchData = await getMatchData(format, gender);
-      
-      // Look for a match with this stadium
-      for (const match of matchData) {
-        if (match.stadium === stadium && match.Venue) {
-          // Venue format is usually "Stadium Name, City"
-          const venue = match.Venue;
-          if (typeof venue === 'string' && venue.includes(',')) {
-            const parts = venue.split(',');
+      try {
+        // Get the raw data to access the Venue field
+        const filename = await getMatchFilename(format, gender);
+        if (!filename) continue;
+        
+        const rawData = await parseCSV(filename);
+        
+        // Look for a match with this stadium
+        for (const matchRow of rawData) {
+          const matchVenue = matchRow.Venue || "";
+          
+          if (typeof matchVenue === 'string' && 
+              matchVenue.includes(stadium) && 
+              matchVenue.includes(',')) {
+            // Venue format is usually "Stadium Name, City"
+            const parts = matchVenue.split(',');
             if (parts.length > 1) {
               return parts[1].trim();
             }
           }
         }
+      } catch (error) {
+        console.error(`Error finding city for stadium ${stadium}:`, error);
       }
     }
   }
