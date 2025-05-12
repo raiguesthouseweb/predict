@@ -77,7 +77,14 @@ export async function analyzeColorTheory(
 
 // Helper: Find team color from team name
 function findTeamColor(teamName: string, teamColors: TeamColor[]): TeamColor | undefined {
-  return teamColors.find(color => color.teamName.toLowerCase() === teamName.toLowerCase());
+  if (!teamName || !teamColors || teamColors.length === 0) {
+    return undefined;
+  }
+  return teamColors.find(color => 
+    color.teamName && 
+    teamName && 
+    color.teamName.toLowerCase() === teamName.toLowerCase()
+  );
 }
 
 // Helper: Find day color from day of the week

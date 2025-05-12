@@ -1,0 +1,127 @@
+# Guru Gyan rAi – App Debug and Fix Instructions for Replit Developer
+
+This document outlines **all current bugs, missing features, and required fixes** based on the current state of the deployed web application. Please address **each issue one by one** using the descriptions provided. This must align strictly with the functionality and design goals shared earlier.
+
+---
+
+## ✅ PRIMARY ISSUES TO FIX
+
+### 1. **Team Suggestion Not Working**
+
+* Issue: Typing into Team A or Team B field shows no autocomplete or suggestions.
+* Fix:
+
+  * Ensure that `Teams.csv` from `/cricket/data/` is properly parsed at runtime.
+  * The input field must use that list dynamically to show team suggestions (autocomplete).
+  * There must not be a dropdown. It should be type-to-suggest.
+
+### 2. **Stadium Suggestions Not Working**
+
+* Issue: Typing stadium name shows no intelligent suggestion.
+* Fix:
+
+  * Extract unique stadium names dynamically by scanning all match files listed in `Index.csv`.
+  * Combine stadiums from ODI.csv, T20.csv, BBL T20.csv etc.
+  * Use the same type-to-suggest behavior as teams.
+
+---
+
+## 🛠 FUNCTIONAL BREAKDOWNS
+
+### 3. **Prediction Always Returns 50-50**
+
+* Issue: Final prediction result always returns 50%-50%.
+* Fix:
+
+  * Ensure the logic defined in the roadmap files is implemented:
+
+    * Head-to-head win rate
+    * Stadium performance history
+    * Day-wise results
+    * Team color matching
+    * Color clash penalty or boost
+    * Score digit pattern logic (post-1st inning)
+  * Fetch data correctly from the provided CSVs.
+  * Return weighted percentage instead of equal default.
+
+### 4. **CSV Parsing Failure Suspected**
+
+* Issue: Logic seems to fail due to incorrect parsing or indexing.
+* Fix:
+
+  * Ensure that `Index.csv` is parsed on app load to determine which match files to scan.
+  * All file names and paths are case-sensitive; verify spelling and file format.
+  * Format and Gendre in Index.csv must be case-insensitive during comparison.
+
+---
+
+## 🎨 UI & UX CORRECTIONS
+
+### 5. **No Home Page or Animated Entry**
+
+* Issue: App jumps straight into prediction fields.
+* Fix:
+
+  * Add a proper home page/splash screen with branding and “Start Prediction” CTA.
+  * Display animated loading screen simulating system boot (Matrix/NASA style).
+
+### 6. **Logo Not Properly Placed**
+
+* Issue: Logo `rAi.png` not implemented or placed poorly.
+* Fix:
+
+  * Logo should appear top-left on all pages and on the home page splash.
+  * Adjust size and position for desktop and mobile.
+
+### 7. **Web App Not Mobile Friendly**
+
+* Issue: Layout is breaking or cut off on smaller screens.
+* Fix:
+
+  * Ensure responsive design using Tailwind CSS or proper media queries.
+  * Input boxes, buttons, and prediction panels must stack and scale on mobile.
+
+---
+
+## ☁️ WEATHER WIDGET ISSUES
+
+### 8. **Weather Data Not Loading or Inaccurate**
+
+* Issue: Weather info is not fetched or not location-specific.
+* Fix:
+
+  * Extract **city name** from selected stadium dynamically.
+  * Use OpenWeatherMap (or similar) to fetch forecast for that city.
+  * If format is **T20**: show rain probability for next 4 hours.
+  * If format is **ODI**: show rain probability for next 10 hours.
+  * Display result below prediction as:
+
+    > "Rain chance in London (next 10 hrs): 12%"
+
+---
+
+## 🔁 FILE INTEGRATION CONFIRMATION
+
+Ensure these files are **read and integrated correctly**:
+
+* `Index.csv` → Used to route correct match files based on Format + Gender.
+* `Teams.csv` → Used to power autocomplete in Team A and Team B.
+* `ODI.csv`, `T20.csv`, `BBL T20.csv`, etc. → Used for extracting matches, stadiums, win history.
+* `team colors.csv`, `day colors.csv` → Used for color theory and day-based match influence.
+
+---
+
+## 🔚 FINAL DELIVERABLE EXPECTATIONS
+
+* Fully functional Guru Gyan rAi app.
+* All major filters and prediction logic working.
+* Mobile responsive.
+* Weather and UI visual enhancement included.
+* Export prediction button functional.
+* Ready to deploy on local system or AWS.
+
+If you need clarification on any point, please refer to the earlier roadmap files or reach out.
+
+Thank you,
+Aakash Rai
+Creator – Guru Gyan rAi
