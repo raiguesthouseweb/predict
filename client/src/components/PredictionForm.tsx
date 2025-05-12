@@ -50,33 +50,36 @@ export function PredictionForm({ onSubmit, isLoading }: PredictionFormProps) {
 
   return (
     <Card className="bg-card border-primary/20 shadow-lg">
-      <CardHeader className="flex flex-row items-center justify-between border-b border-primary/20 px-4 py-3">
-        <CardTitle className="font-orbitron text-primary">Match Prediction Parameters</CardTitle>
-        <div className="flex items-center text-xs text-muted-foreground">
-          <span className="mr-2">Prediction Mode:</span>
-          <div className="flex">
-            <Button
-              type="button"
-              size="sm"
-              variant={predictionMode === 'pre-match' ? "default" : "outline"}
-              className={`rounded-l-md text-xs py-1 px-3 h-auto ${
-                predictionMode === 'pre-match' ? 'bg-primary/20 text-primary' : ''
-              }`}
-              onClick={() => handlePredictionModeChange('pre-match')}
-            >
-              Pre-Match
-            </Button>
-            <Button
-              type="button"
-              size="sm"
-              variant={predictionMode === 'post-innings' ? "default" : "outline"}
-              className={`rounded-r-md text-xs py-1 px-3 h-auto ${
-                predictionMode === 'post-innings' ? 'bg-primary/20 text-primary' : ''
-              }`}
-              onClick={() => handlePredictionModeChange('post-innings')}
-            >
-              Post-Innings
-            </Button>
+      <CardHeader className="border-b border-primary/20 px-4 py-3">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <CardTitle className="font-orbitron text-primary">Match Prediction Parameters</CardTitle>
+          
+          <div className="flex flex-col sm:flex-row sm:items-center text-xs text-muted-foreground gap-2">
+            <span>Prediction Mode:</span>
+            <div className="flex">
+              <Button
+                type="button"
+                size="sm"
+                variant={predictionMode === 'pre-match' ? "default" : "outline"}
+                className={`rounded-l-md text-xs py-1 px-3 h-auto ${
+                  predictionMode === 'pre-match' ? 'bg-primary/20 text-primary' : ''
+                }`}
+                onClick={() => handlePredictionModeChange('pre-match')}
+              >
+                Pre-Match
+              </Button>
+              <Button
+                type="button"
+                size="sm"
+                variant={predictionMode === 'post-innings' ? "default" : "outline"}
+                className={`rounded-r-md text-xs py-1 px-3 h-auto ${
+                  predictionMode === 'post-innings' ? 'bg-primary/20 text-primary' : ''
+                }`}
+                onClick={() => handlePredictionModeChange('post-innings')}
+              >
+                Inning Break
+              </Button>
+            </div>
           </div>
         </div>
       </CardHeader>

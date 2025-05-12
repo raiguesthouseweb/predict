@@ -89,8 +89,10 @@ export class MemStorage implements IStorage {
     const id = this.userId++;
     const now = new Date();
     const user: User = {
-      ...insertUser,
       id,
+      username: insertUser.username,
+      password: insertUser.password,
+      isAdmin: insertUser.isAdmin === true ? true : false,
       createdAt: now
     };
     
