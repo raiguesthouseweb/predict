@@ -1,0 +1,197 @@
+# Project Roadmap: CricketMatchPredictor – Offline AI Web Application
+
+## Objective
+
+Build an offline-accessible web application capable of predicting the outcome of a cricket match based on historical data. The application operates in two modes:
+
+* Pre-Match Prediction (Part 1): Based on team names, date, format, and venue.
+* Post-1st Inning Prediction (Part 2): Based on first innings score and contextual data.
+
+## Deployment Scope
+
+* The application will be hosted and run on a local machine or cloud server (e.g., AWS EC2).
+* All match data files and logic will remain private to the server.
+* The user-facing frontend will interact with the backend via API calls, without accessing or uploading any data files.
+
+## Core Functionalities
+
+### Part 1: Pre-Match Prediction
+
+#### User Input Fields
+
+* Team A
+* Team B
+* Match Format (ODI / T20)
+* Gender (Male / Female)
+* Match Date (DD/MM/YYYY)
+* Stadium (Auto-suggested based on dataset)
+
+#### Backend Logic Flow
+
+1. Data Source Mapping
+
+   * Load `index.csv` to map the selected format and gender to the correct match data file (e.g., `odi_male.csv`).
+   * All match data files reside on the server and are accessed internally.
+
+2. Head-to-Head Analysis
+
+   * Search all matches between Team A and Team B (in both directions).
+   * Count wins for each team and calculate win percentages.
+
+3. Stadium-Based Analysis
+
+   * Filter matches played between Team A and Team B at the selected stadium.
+   * Calculate win ratio per team.
+
+4. Weekday-Based Analysis
+
+   * Convert input date to weekday (e.g., Monday).
+   * Filter matches between Team A and Team B played on that weekday.
+   * Calculate respective win ratios.
+
+5. Team Performance by Venue and Day
+
+   * Calculate how many times each team has played at the selected stadium and on the given weekday, and their win ratios.
+
+6. Season/Month-Based Performance
+
+   * Extract month from the selected date.
+   * Calculate each team's win ratio in that month.
+
+7. Color-Day Match Logic
+
+   * Use `team_colors.csv` and `day_colors.csv`:
+
+     * Match day’s favorite color(s) with jersey color percentages.
+     * Assign proportional boost based on match.
+     * Only consider flag color as a fallback if jersey provides 0% match.
+
+8. Color Clash Logic
+
+   * If both teams have a dominant shared jersey color (>70%), cancel out the color advantage.
+
+9. Similar-Color Team Analysis
+
+   * Identify other teams with a similar dominant color (within ±10–15% tolerance).
+   * Calculate how many of those teams have won on the same weekday.
+   * Translate this into additional prediction weight.
+
+### Part 2: Post-1st Inning Prediction
+
+#### User Input Fields
+
+* Team A Name
+* Team A First Inning Score
+* Team B Name
+* Match Format (ODI / T20)
+* Gender (Male / Female)
+* Match Date (DD/MM/YYYY)
+* Stadium
+
+#### Backend Logic Flow
+
+1. Exact Score Outcome Analysis
+
+   * Search all matches where the 1st inning score equals the entered score (e.g., 179).
+   * Determine how many of those matches were:
+
+     * Chased successfully
+     * Defended successfully
+     * Tied
+
+2. Stadium-Specific Outcome Analysis
+
+   * Repeat the above search limited to matches played at the selected stadium.
+
+3. Digit-Based Outcome Pattern
+
+   * Add the digits of the input score and extract the last digit.
+   * Filter all matches with the same `Digit` value in the dataset.
+   * Calculate chase, defend, and tie percentages.
+
+4. Team B’s History of Chasing Target
+
+   * Filter all matches where Team B chased the given score.
+   * Calculate success rate.
+
+5. Team A’s History of Defending Target
+
+   * Filter all matches where Team A defended the given score.
+   * Calculate success rate.
+
+6. Color-Day Match, Color Clash, and Similar-Color Team Logic
+
+   * Same as in Part 1, applied to Team A and Team B in second-inning context.
+
+## Supporting Data Files
+
+### 1. index.csv
+
+Used to map Format + Gender → Match Data Filename
+
+| Format | Gender | Type          | FileName        |
+| ------ | ------ | ------------- | --------------- |
+| ODI    | Male   | International | odi\_male.csv   |
+| T20    | Female | League        | t20\_female.csv |
+
+### 2. team\_colors.csv
+
+Includes jersey color percentages and optional flag colors for each team.
+
+| Team  | Blue % | Yellow % | Orange % | Green % | ... | Flag Colors  |
+| ----- | ------ | -------- | -------- | ------- | --- | ------------ |
+| India | 80     | 10       | 10       | 0       |     | Blue, Orange |
+
+### 3. day\_colors.csv
+
+Specifies favorite colors per weekday.
+
+| Day    | Color1 | %1 | Color2 | %2 |
+| ------ | ------ | -- | ------ | -- |
+| Monday | Red    | 60 | White  | 40 |
+
+### 4. match\_data\_files (e.g., t20\_male.csv)
+
+Includes individual match entries.
+
+| Date       | Team1 | Team2   | Winner | Stadium  | FirstInningScore | Digit | ... |
+| ---------- | ----- | ------- | ------ | -------- | ---------------- | ----- | --- |
+| 12/05/2021 | India | England | India  | Wankhede | 179              | 7     |     |
+
+## Prediction Output
+
+* The frontend will display only one clean result:
+
+  ```
+  Final Prediction:
+  India 61% – 39% England
+  ```
+* No statistical breakdown will be shown to the user.
+
+## Development Guidelines
+
+* Use modular backend logic to separate filters, parsers, and scoring engine.
+* Data files must remain private on the server and should not be exposed to the frontend.
+* All API interactions must be sanitized and stateless.
+* Ensure timezone consistency when extracting weekday or month from match dates.
+* Use weighted scoring to calculate final prediction percentage based on all matching conditions.
+
+## Weights (Suggested)
+
+| Factor                            | Suggested Weight  |
+| --------------------------------- | ----------------- |
+| Head-to-head overall              | 25%               |
+| Venue-specific performance        | 15%               |
+| Weekday-specific performance      | 10%               |
+| Month-based performance           | 10% (Part 1 only) |
+| Team chase/defend history         | 10%               |
+| Color-day match influence         | 10%               |
+| Similar-colored team weekday wins | 10%               |
+| Color clash neutralization        | -                 |
+| Exact score outcome               | 15% (Part 2)      |
+| Digit pattern match               | 10% (Part 2)      |
+| Stadium-specific score outcome    | 10% (Part 2)      |
+
+## Conclusion
+
+This roadmap outlines all necessary data sources, processing logic, user-facing components, and output constraints required to develop an offline AI-powered cricket match prediction application. The prediction engine must remain completely offline, lightweight, and server-handled while maintaining strong modular design for expansion.

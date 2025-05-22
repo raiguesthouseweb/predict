@@ -1,0 +1,269 @@
+# Web Application Enhancement Roadmap (Professional Documentation)
+
+## Objective
+
+To enhance the existing web application (now titled **Guru Gyan rAi**) by improving usability, expanding dynamic data support, implementing user authentication, admin controls, internal messaging, removing all external dependencies (specifically Replit-related), and ensuring long-term scalability via flexible data handling and intelligent UI behavior.
+
+---
+
+## New Application Title: Guru Gyan rAi
+
+### Naming Convention:
+
+* From this point onward, the app will be referred to as **Guru Gyan rAi**.
+* All labels, console messages, prediction displays, and visual elements must reflect this name.
+
+### Prediction Result Format:
+
+```
+Guru Gyan Prediction says:
+India's winning chances in this T20 Match are 64%, and England's chances is just 36%.
+```
+
+This message format should replace all existing formats related to final prediction display.
+
+---
+
+## 1. Make the Web App Mobile-Friendly
+
+### Goal:
+
+* Ensure full responsiveness across all screen sizes.
+
+### Requirements:
+
+* Use responsive utility classes (e.g., Tailwind CSS or media queries).
+* Form elements must stack on smaller devices.
+* Prediction results and animation visuals must resize proportionally.
+* Maintain touch-friendly controls (e.g., dropdowns, buttons).
+
+---
+
+## 2. Team and Stadium Inputs: Editable Searchable Dropdowns
+
+### Goal:
+
+* Enable real-time search within dropdowns.
+* Support dynamic filtering as the user types.
+
+### Team Selection Behavior:
+
+* User types partial team name (e.g., "Ind")
+* Suggestions: `India`, `Indonesia`, `West Indies`, etc.
+* Dropdown filters dynamically
+
+### Stadium Selection Behavior:
+
+* If the user types "India" → All stadiums from India are shown.
+* If the user types exact stadium name (e.g., "Wankhede") → Only that is suggested.
+* Suggestions update live while typing.
+
+### Implementation Suggestions:
+
+* Use `react-select` or similar searchable dropdown libraries.
+* Maintain a separate list of stadiums with country info for grouping.
+
+---
+
+## 3. CSV Data Directory Handling (from Server)
+
+### Folder Structure:
+
+```
+/server
+   └── /cricket
+         └── /data
+               ├── index.csv
+               ├── ODI.csv
+               ├── T20.csv
+               ├── BBL T20.csv
+               ├── BBWL T20.csv
+               └── [other league/format files]
+```
+
+### `index.csv` Format:
+
+| Format | Gendre | Type          | File Name |
+| ------ | ------ | ------------- | --------- |
+| ODI    | MALE   | International | ODI.csv   |
+| T20    | Male   | International | T20.csv   |
+
+### Important Notes:
+
+* Index must be parsed at runtime.
+* Format matching must be **case-insensitive** ("ODI", "odi", etc.)
+* Gendre should also be treated **case-insensitively**:
+
+  * All of: `man`, `men`, `male`, `MALE`, `MEN`, `MAN` → `male`
+  * All of: `female`, `women`, `FEMALE`, `WOMEN` → `female`
+
+---
+
+## 4. Dynamic File Parsing Logic
+
+### Goal:
+
+* Use the `index.csv` to dynamically determine which files to load and search during predictions.
+
+### T20 Matching:
+
+* Search across all files where `Format == T20` (as per index.csv)
+* That includes `T20.csv`, `BBL T20.csv`, `BBWL T20.csv`, etc.
+* File name in `index.csv` is the authoritative pointer.
+
+### ODI Matching:
+
+* Same logic applied: search all files listed in index.csv where `Format == ODI`
+
+### Implementation Plan:
+
+* Read `index.csv` once at startup or on data update.
+* Normalize all entries to lowercase for consistent matching.
+* Store mapping of:
+
+```ts
+{
+  format: 't20',
+  gender: 'male',
+  filename: 'BBL T20.csv'
+}
+```
+
+* Based on user’s filter, collect all relevant filenames and query them collectively.
+
+---
+
+## 5. Future Scalability: Index-Based Data Routing
+
+### Rationale:
+
+* More leagues and formats will be added later (e.g., `PSL T20`, `WPL T20`, etc.)
+* File names may vary, but index.csv will act as the controller
+
+### Strategy:
+
+* Never hard-code filenames.
+* Always refer to `index.csv` to route to correct datasets.
+* This ensures:
+
+  * Uniform structure
+  * Flexible updates without code changes
+  * Easy scaling for new leagues and datasets
+
+---
+
+## 6. REMOVE All Replit Dependencies (Immediately)
+
+### Action:
+
+* The application must not rely on any Replit-specific packages, scripts, hosting tools, or service APIs.
+* Remove all references to:
+
+  * `.replit` file
+  * `replit.nix`
+  * Any scripts/tools created for Replit-only environments
+  * All Replit-dependant deployment scripts or runtimes
+
+### Goal:
+
+* Ensure platform independence and clean production-ready codebase.
+* Full compatibility with local systems, GitHub Actions, Vercel, AWS, or custom deployment pipelines.
+
+### Deadline:
+
+**TATKAAL PRABHAAV SE** — This change must be enforced immediately.
+
+---
+
+## 7. User Authentication, Account System & Admin Panel
+
+### User Account System:
+
+* Register/login using user ID and password
+* Password change option inside profile
+* Login persistence with session tokens or cookies
+
+### Saved Prediction History:
+
+* Store each user's last prediction result in their account
+* Show history of predictions with timestamp and input used
+
+### Admin Panel:
+
+* Admin can:
+
+  * Add new users manually
+  * View user list
+  * View predictions by user
+  * Deactivate accounts if needed
+
+### Real-Time Message System:
+
+* Message Box between Admin ↔ User
+* Send and receive messages without webhooks
+* Acceptable latency: \~2–3 minutes max
+* Use a polling mechanism (e.g., setInterval with server endpoint)
+
+### Technologies:
+
+* Backend auth via the token-based system or simple JWT
+* Store messages and predictions in a local database or structured JSON
+* Messages fetched via polling, not via webhooks
+
+---
+
+## 8. Home Page and Loading Screen Enhancement
+
+### Objective:
+
+* Improve first-time user experience
+
+### Enhancements:
+
+* Introduce a dedicated **Home Page** with project branding, logo, and a “Start Prediction” CTA
+* Add a **loading screen** with animated branding or transition while data loads
+* Prevent app from jumping directly into search filters on load
+* Create UI entry that feels complete and professionally polished
+
+### Additional UI Polish:
+
+* Improve spacing, layout, and transitions
+* Add helpful UI tooltips or info icons
+* Fine-tune typography and color palette for high-end visual consistency
+
+---
+
+## 9. AI Visualization and Weather Integration
+
+### AI Search Visual Enhancements:
+
+* Replace basic debug-style search logs with immersive, cricket-specific visuals
+* Simulate technical processes like:
+
+  * Checking ground dimensions and square/straight boundaries
+  * Evaluating pitch hardness, dryness, grass coverage
+  * Analyzing dew forecast
+  * Reviewing historical scoring patterns for stadium
+
+### Weather Widget Feature:
+
+* Show real-time rain probability based on the stadium’s city
+* Weather logic:
+
+  * For **T20**: forecast rain chance within next 4 hours
+  * For **ODI**: forecast rain chance within next 10 hours
+* Use a **free open weather API** like OpenWeatherMap (city-based)
+* Display in prediction panel as:
+
+```
+Weather Advisory:
+Rain Probability in Sharjah (next 4 hrs): 35%
+```
+
+---
+
+## Conclusion
+
+These enhancements will transform **Guru Gyan rAi** into a fully scalable, intelligent, secure, and user-driven prediction system. With a robust authentication system, user-specific prediction history, admin-level control, internal messaging platform, immersive visual UI, and weather forecasting, the system will become comprehensive, professional-grade, and future-proof.
+
+All enhancements will ensure future extensibility while maintaining platform independence from services like Replit.

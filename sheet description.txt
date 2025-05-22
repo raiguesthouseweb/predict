@@ -1,0 +1,157 @@
+# Categorized\_Match\_List.xlsx — Full Sheet Description Guide
+
+This document explains the structure, purpose, and column-wise descriptions of all major sheets in the `Categorized_Match_List.xlsx` Excel file used for cricket match prediction.
+
+---
+
+## 📁 Sheet Index
+
+The following sheets are available:
+
+* T20 Male
+* T20I Women
+* Super Smash Male
+* South Africa T20
+* PSL
+* Lanka Premier League
+* IPL
+* Vitality Blast T20
+* Nepal Premier League T20
+* Mzansi Super League T20
+* Major League Cricket T20
+* Inter-Provincial Twenty20 Trophy
+* CSA T20 Challenge Male
+* International League T20 Male
+* Bangladesh Premier League Male
+* Women’s Caribbean Premier League
+* Caribbean Premier League Male
+* Big Bash League Male
+* Women Premier League (WPL)
+* BBW
+* Women’s T20 Challenge
+* Super Smash Women
+* Women’s Cricket Super League T20
+* Blaze Indies T20
+* Charlotte Edwards Cup T20 Women
+* Index
+* Team Colors
+* Day Colors
+* Stadiums
+
+---
+
+## 📌 Index Sheet Explanation
+
+The `Index` sheet provides a master reference for all match sheets.
+
+| Column | Content                       |
+| ------ | ----------------------------- |
+| A      | Match Format (e.g., T20, ODI) |
+| B      | Gender (Male / Women)         |
+| C      | Type (International, League)  |
+| D      | League Name                   |
+| E      | Country                       |
+
+Example: IPL → Format = T20, Gender = Male, Type = League, Country = India
+
+---
+
+## 🎽 Team Colors Sheet Explanation
+
+Provides jersey and flag color details for each team.
+
+| Column | Content                        |
+| ------ | ------------------------------ |
+| A      | Team Name                      |
+| B      | Jersey (Main)                  |
+| C      | Jersey - Color 1 (Optional)    |
+| D      | Jersey - Color 2 (Optional)    |
+| E      | Jersey - Color 3 (Optional)    |
+| F–K    | Flag - Color 1 to 6 (Optional) |
+
+---
+
+## 🌈 Day Colors Sheet Explanation
+
+Maps days of the week to their associated visual theme colors.
+
+| Column | Content             |
+| ------ | ------------------- |
+| A      | Day (Monday–Sunday) |
+| B      | Color Name          |
+| C      | Hex Code            |
+
+Multiple rows may exist per day for alternate color mappings.
+
+---
+
+## 🏟️ Stadiums Sheet Explanation
+
+Used for locating the stadium geographically for weather analysis and mapping:
+
+| Column | Content                                |
+| ------ | -------------------------------------- |
+| A      | Stadium Name                           |
+| B      | Country (where the stadium is located) |
+| C      | City (where the stadium is located)    |
+| D      | ZIP Code (used for weather API)        |
+
+### Weather Logic Usage:
+
+* If **Format = T20**:
+
+  * App uses Column D (Zip Code) for weather forecast (next 4–5 hours)
+  * If Zip Code is missing → fallback to Column C (City) for weather lookup
+
+* If **Format = ODI**:
+
+  * App uses Column D (Zip Code) for weather forecast (next 9–10 hours)
+  * If Zip Code is missing → fallback to Column C (City) for weather lookup
+
+This logic ensures weather conditions are considered accurately for match predictions.
+
+---
+
+## 🏏 T20 Match Sheet Column Description
+
+| Column | Header          | Description                                                                      |
+| ------ | --------------- | -------------------------------------------------------------------------------- |
+| A      | Date            | Match date → used to derive day of the week.                                     |
+| B      | Country         | Country where the match was held.                                                |
+| C      | Venue           | Ground name.                                                                     |
+| D      | Teams           | Format: `India vs Pakistan` (use `vs` to split teams)                            |
+| E      | Toss Winner     | Toss-winning team. Not very important.                                           |
+| F      | Bat First       | Team who batted first → this determines 1st inning.                              |
+| G      | 6OVR (1st Inn)  | Score after 6 overs (first inning).                                              |
+| H      | 10OVR (1st Inn) | Score after 10 overs.                                                            |
+| I      | 15OVR (1st Inn) | Score after 15 overs.                                                            |
+| J      | Target (20OVR)  | Final score of first inning. Used as Target.                                     |
+| K      | Digit           | Custom internal field (for analysis).                                            |
+| L      | 6OVR (2nd Inn)  | 6-over score for second inning.                                                  |
+| M      | 10OVR (2nd Inn) | 10-over score for second inning.                                                 |
+| N      | 15OVR (2nd Inn) | 15-over score for second inning.                                                 |
+| O      | 20OVR (2nd Inn) | Final score for second inning. Compare with Target to determine Chase vs Defend. |
+| P      | Winner          | Winning team. Optional field.                                                    |
+
+---
+
+## 🏏 ODI Match Sheet Column Description
+
+| Column | Header                | Description                                         |
+| ------ | --------------------- | --------------------------------------------------- |
+| A      | Date                  | Match date → used to calculate day.                 |
+| B      | Country               | Host country.                                       |
+| C      | Venue                 | Ground name.                                        |
+| D      | Teams                 | Two teams playing. Separated by `vs`.               |
+| E      | Toss Winner           | Toss-winning team.                                  |
+| F      | Bat First             | First inning team.                                  |
+| G–O    | 5–45OVR (1st Inn)     | 5-over step scores for first inning.                |
+| P      | Target (50OVR)        | Final score of first inning.                        |
+| Q      | Digit                 | App-specific internal digit.                        |
+| R–Z    | 5–45OVR (2nd Inn)     | Milestone scores in 5-over steps for second inning. |
+| AA     | Final Score (2nd Inn) | End score of second inning. Use to decide winner.   |
+| AB     | Winner                | Final winner. Optional.                             |
+
+---
+
+**NOTE:** No column in T20 or ODI sheets should be ignored. Only complete Test/MDM sheets are excluded from parsing due to format inconsistencies.

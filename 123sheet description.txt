@@ -1,0 +1,264 @@
+# Excel Data Structure Guidelines for Match Prediction
+
+This document provides a detailed overview of how the Excel file `Categorized_Match_List.xlsx` is structured and how its data is used by our cricket match prediction web application. It is intended for implementation guidance, particularly for integrating new logic or handing this off to Trae or any other developer.
+
+---
+
+## 🔗 Source Reference
+
+* File: `server/cricket/xlsxParser.ts` → Handles Excel reading
+* Main data source: `Categorized_Match_List.xlsx`
+* File documented in: `FullInformation.md`
+
+---
+
+## 📊 Excel File Structure Overview
+
+Each match sheet inside `Categorized_Match_List.xlsx` has a consistent layout, with one row per match and columns containing either overall game details or inning-wise performance milestones.
+
+### ⚠️ Important:
+
+* Every column in each sheet's **Row 1** contains the header that defines exactly what data it holds and which inning it relates to.
+* This includes data like `6OVR`, `10OVR`, `15OVR`, `Target`, and equivalents for **both 1st and 2nd innings**.
+* These should all be considered valid and structured inputs for prediction — **nothing should be ignored in T20 or ODI formats.**
+* Only Test & Multi-Day Match (MDM) sheets are **excluded from logic for now** due to unmatched innings formats.
+
+Below is a per-format column description summary derived from each sheet’s header row:
+
+### 🗂️ Match Sheet Categorization
+
+We classify match data sheets in `Categorized_Match_List.xlsx` into the following categories:
+
+#### 🏏 T20 Format Sheets
+
+Sheets containing T20 match records:
+
+* T20 Male
+* T20I Women
+* Super Smash Male
+* South Africa T20
+* PSL
+* Lanka Premier League
+* IPL
+* Vitality Blast T20
+* Nepal Premier League T20
+* Mzansi Super League T20
+* Major League Cricket T20
+* Inter-Provincial Twenty20 Trophy
+* CSA T20 Challenge Male
+* International League T20 Male
+* Bangladesh Premier League Male
+* Women’s Caribbean Premier League
+* Caribbean Premier League Male
+* Big Bash League Male
+* Women Premier League (WPL)
+* BBW
+* Women’s T20 Challenge
+* Super Smash Women
+* Women’s Cricket Super League T20
+* Blaze Indies T20
+* Charlotte Edwards Cup T20 Women
+
+#### 🏏 ODI Format Sheets
+
+Sheets containing ODI match records:
+
+* ODI Male
+* ODI Women
+* Royal London One-Day Cup
+* Womens One Day Cup
+* Rachael Heyhoe Flint Trophy 50O
+* Super50 Women
+
+#### 🚫 Ignored for Now
+
+* All **Test** and **Multi-Day Match** formats will be ignored in current logic:
+
+  * Test Women
+  * TEST M
+  * Plunket Shield Multi Day Match
+  * Sheffield Shield MMD
+  * Multi Day Domestic (MDM) England
+
+---
+
+The Excel workbook contains **multiple sheets**, each representing a specific **category or league of matches**. Based on the current `Categorized_Match_List.xlsx` file, the following sheets are included:
+
+1. ODI Male
+2. T20 Male
+3. ODI Women
+4. T20I Women
+5. Super Smash Male
+6. South Africa T20
+7. PSL
+8. Lanka Premier League
+9. IPL
+10. Sheffield Shield MMD
+11. Syed Mushtaq Ali Trophy
+12. Royal London One-Day Cup
+13. Vitality Blast T20
+14. Nepal Premier League T20
+15. Mzansi Super League T20
+16. Major League Cricket T20
+17. Inter-Provincial Twenty20 Trophy
+18. CSA T20 Challenge Male
+19. International League T20 Male
+20. Bangladesh Premier League Male
+21. Women’s Caribbean Premier League
+22. Caribbean Premier League Male
+23. Big Bash League Male
+24. Women Premier League (WPL)
+25. BBW
+26. Women’s T20 Challenge
+27. Super Smash Women
+28. Women’s Cricket Super League T20
+29. Test Women
+30. Plunket Shield Multi Day Match
+31. Womens One Day Cup
+32. The Hundred Male
+33. TEST M
+34. Multi Day Domestic (MDM) England
+35. Rachael Heyhoe Flint Trophy 50O
+36. The Hundred Women
+37. FairBreak Invitational Tournament
+38. Super50 Women
+39. Blaze Indies T20
+40. Charlotte Edwards Cup T20 Women
+
+Each sheet follows a consistent structure of columns for match data, though the actual values and patterns vary by format (T20, ODI).
+
+### 🧾 Key Columns by Format
+
+The following columns exist in both T20 and ODI sheets and should be parsed completely. These include milestone scores at various overs (6, 10, 15, 20), full inning totals, and all available performance indicators. Columns are ordered as they appear in the sheet (A to R):
+
+| Column | Description                         | Inning     | Used in Prediction? |
+| ------ | ----------------------------------- | ---------- | ------------------- |
+| A      | Match Date (DD-MM-YYYY)             | Global     | ✅ Yes               |
+| B      | Stadium Name                        | Global     | ✅ Yes               |
+| C      | Match Type (ODI/T20)                | Global     | ✅ Yes               |
+| D      | League/Series Name                  | Global     | ✅ Yes               |
+| E      | Team A                              | Global     | ✅ Yes               |
+| F      | Team B                              | Global     | ✅ Yes               |
+| G      | Toss Winner                         | Global     | ✅ Yes               |
+| H      | Toss Decision (Bat/Field)           | Global     | ✅ Yes               |
+| I      | 6-Over Score (1st Inning)           | 1st Inning | ✅ Yes               |
+| J      | 10-Over Score (1st Inning)          | 1st Inning | ✅ Yes               |
+| K      | 15-Over Score (1st Inning)          | 1st Inning | ✅ Yes               |
+| L      | Target / 20 Over Score (1st Inning) | 1st Inning | ✅ Yes               |
+| M      | 6-Over Score (2nd Inning)           | 2nd Inning | ✅ Yes               |
+| N      | 10-Over Score (2nd Inning)          | 2nd Inning | ✅ Yes               |
+| O      | 15-Over Score (2nd Inning)          | 2nd Inning | ✅ Yes               |
+| P      | Final Score (2nd Inning)            | 2nd Inning | ✅ Yes               |
+| Q      | Result Type (Win/NR/Tie)            | Global     | ✅ Yes               |
+| R      | Winning Team                        | Global     | ✅ Yes               |
+| S      | Margin (Runs/Wickets)               | Global     | ✅ Yes               |
+| T      | Match Notes (Optional)              | Global     | Optional            |
+
+All of the above columns must be retained while parsing. None are to be ignored in the current logic for T20 or ODI formats.
+
+Test/MDM sheets are excluded due to irregular innings breakdowns and will be processed separately in the future.
+
+---
+
+### 🗃️ Index Sheet Explanation
+
+* **Index Sheet**: Acts as a metadata sheet listing all available sheets, categories, and formats.
+* Key Columns:
+
+  * A: Sheet Name
+  * B: Match Format (e.g., ODI, T20)
+  * C: Gender (Men/Women)
+  * D: Level (International/Domestic)
+  * E: Notes or Status (optional)
+
+### 🌈 Day Color Sheet Explanation
+
+* Maps days of the week to specific colors for UI tagging or visual analysis.
+* Key Columns:
+
+  * A: Day (e.g., Monday, Tuesday)
+  * B: Color Hex Code (e.g., #FF5733)
+
+### 🎨 Team Colors Sheet Explanation
+
+* Contains team name and associated jersey/flag color information.
+* Key Columns:
+
+  * A: Team Name
+  * B: Primary Jersey Color (Hex)
+  * C: Secondary Jersey Color (Hex)
+  * D: Flag Color(s) (Hex or comma-separated list)
+
+| Column | Description               | Used in Prediction?                  |
+| ------ | ------------------------- | ------------------------------------ |
+| A      | Match Date (DD-MM-YYYY)   | ✅ Yes (For recent performance logic) |
+| B      | Stadium Name              | ✅ Yes (For stadium-based filters)    |
+| C      | Match Type (ODI/T20/Test) | ✅ Yes                                |
+| D      | League/Series Name        | ✅ Yes (Used for tagging & filtering) |
+| E      | Team A                    | ✅ Yes                                |
+| F      | Team B                    | ✅ Yes                                |
+| G      | Toss Winner               | ✅ Yes                                |
+| H      | Toss Decision (Bat/Field) | ✅ Yes                                |
+| I      | First Inning Score        | ✅ Yes                                |
+| J      | First Inning Wickets      | ❌ No                                 |
+| K      | First Inning Overs        | ❌ No                                 |
+| L      | Second Inning Score       | ✅ Yes                                |
+| M      | Second Inning Wickets     | ❌ No                                 |
+| N      | Second Inning Overs       | ❌ No                                 |
+| O      | Result Type (Win/NR/Tie)  | ✅ Yes                                |
+| P      | Winning Team              | ✅ Yes                                |
+| Q      | Margin (Runs/Wickets)     | ✅ Yes                                |
+| R      | Match Notes (Optional)    | ❌ No                                 |
+
+---
+
+## 🧠 How Prediction Works
+
+The system uses the data above to generate predictions by evaluating:
+
+* **Team matchups**: historical head-to-head performance
+* **Stadium trends**: win/loss trends at specific venues
+* **Score patterns**: how often specific scores are defended or chased
+* **Date filters**: day-of-week analysis (e.g. how teams perform on Fridays)
+
+These calculations are performed via helper functions defined in:
+
+* `getHeadToHead`, `getStadiumMatches`, `getAllHeadToHead`, etc.
+* Located in: `server/cricket/xlsxParser.ts`
+
+---
+
+## 📌 What to Ignore
+
+As of now, **no columns from T20 or ODI formats are ignored**. Every inning milestone (6OVR, 10OVR, etc.) is relevant and should be retained.
+
+Only the following sheets are excluded from parsing for now:
+
+* Test Women
+* TEST M
+* Plunket Shield Multi Day Match
+* Sheffield Shield MMD
+* Multi Day Domestic (MDM) England
+
+These formats do not follow consistent limited-overs inning structures.
+
+---
+
+## 🔧 Developer Notes for Trae
+
+* Only read columns **A to Q** from each sheet
+* Use standardized column names to map dynamically
+* Sheet names can vary but structure is consistent
+* Use filtering functions from `xlsxParser.ts` to query relevant match data
+* Ensure encoding and newline handling is proper when parsing Excel
+
+---
+
+## ✅ Summary
+
+* `Categorized_Match_List.xlsx` contains all match history data
+* `xlsxParser.ts` extracts it into structured format
+* Prediction engine uses historical data trends, scores, venues, and team history
+* Only relevant rows/columns are used per query
+
+This structure allows seamless integration of Excel data into the web app’s prediction engine with low complexity and high performance.

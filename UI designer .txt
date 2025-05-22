@@ -1,0 +1,71 @@
+# 🎨 Rai Guest House – Super Dynamic UI Editor
+
+## 🔥 Objective:
+Build a visual design studio (like Canva + Photoshop) to edit **every visible UI element** of your web app — no coding needed.
+Users (even kids 👶) can edit **colors, fonts, layout, themes, components, and even upload/import new layouts**.
+
+---
+
+## ✅ Core Features
+
+### 1. 🎛️ Universal Visual Editor Page (`/ui-editor`)
+- Sidebar with tabs: Colors, Typography, Branding, Layout, Animations
+- Main panel: Live component/page preview
+- Toggle dark/light mode
+- Responsive view switch: Desktop, Tablet, Mobile
+
+### 2. 🎨 Design Controls
+- **Color Pickers**: Primary, Secondary, Background, Text, Card, Button
+- **Font Chooser**: Dropdown with Tailwind & Google Fonts
+- **Logo/Image Upload**: Drag-and-drop or file upload (stored in public folder or base64)
+- **Spacing Sliders**: Margin, padding, border-radius
+- **Animation Choosers**: Fade, slide, bounce, shimmer etc.
+
+### 3. 📁 Theme Import/Export
+- Download current design as `.json`
+- Upload `.json` to restore or switch to new themes
+- Apply instantly to live UI
+
+### 4. 🌐 Internet Theme Library Integration
+- Button to fetch themes from open Tailwind/React marketplaces (like Tailwind UI, Flowbite, etc.)
+- Preview, download & apply with 1 click
+- Support user-uploaded `.json` themes (custom made)
+
+### 5. 🔄 Realtime Propagation
+- Use global `ThemeConfigContext` to apply changes live across:
+  - `Home.tsx`
+  - `Menu.tsx`
+  - `OrderStatus.tsx`
+  - `Admin.tsx`
+  - `Tourism.tsx`
+- Every component (card, button, text, nav) uses design from context
+
+### 6. 💾 Save & Sync
+- **LocalStorage first**
+- Optional: Firebase or Supabase sync for cloud saving
+- Version control for themes
+
+---
+
+## 🧠 Advanced Features (Phase 2+)
+- Drag-n-drop layout builder
+- Section-based editing (like Elementor)
+- Preset Theme Templates
+- Component-style duplication and overrides
+- Undo/redo actions
+
+---
+
+## 📦 Tech Stack
+- React + Tailwind CSS
+- Context API or Zustand (for theme state)
+- `react-color`, `react-dropzone`, `react-select`
+- `FileReader`, `localStorage`, optional Firebase
+
+---
+
+## ✅ Summary
+> Your project will have its own inbuilt **UI theme store, live editor, branding control, and component playground.**
+
+**Next Step:** Build `/pages/ui-editor.tsx` to start the first version.
+Shall I begin? 💡

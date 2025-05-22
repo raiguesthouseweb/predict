@@ -1,0 +1,179 @@
+Stadium Name	Country	City	Zip Code
+7he Sevens Stadium	United Arab Emirates	Dubai	0
+ACA Stadium	Unknown	Mangalagiri	 
+ACA Stadium	Unknown	Guwahati	 
+ACA–VDCA Cricket Stadium	India	Visakhapatnam	 
+Affies Park	Namibia	Windhoek	 
+Ageas Bowl (Rose Bowl)	England	Southampton	SO30 3XH
+Al Amerat Cricket Ground Oman Cricket (Ministry 1)	Oman	Al Amarat	 
+Al Amerat Cricket Ground Oman Cricket (Ministry 2)	Oman	Al Amarat	 
+Al Dhaid Cricket Village	United Arab Emirates	Al Dhaid	 
+Albert Park 1	Fiji	Suva	 
+Albert Park 2	Fiji	Suva	 
+Alembic 1 Cricket Ground	India	Vadodara	 
+Alembic 2 Cricket Ground	India	Vadodara	 
+Allan Border Field	Australia	Brisbane	4151
+Alletson Ground	England	Nottingham	NG2 6AG
+Alur Cricket Stadium	India	Alur	 
+Alur Cricket Stadium II	India	Alur	 
+Alur Cricket Stadium III	India	Alur	 
+Amingaon Cricket Ground	India	Guwahati	781001
+AMI Stadium (Lancaster Park)	New Zealand	Christchurch	8011
+Antigua Recreation Ground	Antigua and Barbuda	St John's	 
+Arbab Niaz Stadium	Pakistan	Peshawar	 
+Arundel Castle Cricket Club Ground	England	Arundel	 
+Asia Institute of Technology Ground	Thailand	Bangkok	 
+Assam Cricket Association Stadium (Barsapara)	India	Guwahati	781018
+Australian Sports Ground No.1 (Port Vila)	Vanuatu	Port Vila	 
+Bagh-e-Jinnah	Pakistan	Lahore	54000
+Bakau National Stadium	Gambia	Bakau	 
+Bangabandhu National Stadium	Bangladesh	Dhaka	1216
+Bangui Cricket Ground	Central African Republic	Bangui	 
+Barabati Stadium	India	Cuttack	753001
+Barangaroo Oval	Australia	Sydney	2000
+Barclays Ground (Park Road)	England	Leicester	 
+Bellerive Oval	Australia	Hobart	7000
+Bert Sutcliffe Oval	New Zealand	Lincoln	 
+Bir Shrestha Shahid Flight Lt. Matiur Rahman Stadium	Bangladesh	Khulna	 
+Bishan Singh Bedi Stadium	India	Delhi	110001
+Blackfinch New Road (County Ground Worcester)	England	Worcester	 
+Boland Park	South Africa	Paarl	 
+Bourda (Georgetown Cricket Club Ground)	Guyana	Georgetown	 
+Brian Lara Cricket Academy	Trinidad and Tobago	Tarouba	 
+Brian Lara Stadium (see Brian Lara Cricket Academy)	Trinidad and Tobago	Tarouba	 
+Brian Lara Stadium, Tarouba, Trinidad	Trinidad and Tobago	Tarouba	 
+Brisbane Cricket Ground (The Gabba)	Australia	Brisbane	4151
+Bulawayo Athletic Club	Zimbabwe	Bulawayo	 
+Buffalo Park	South Africa	East London	 
+Cairo Cricket Club Grounds	Egypt	Cairo	 
+Canberra Manuka Oval	Australia	Canberra	2601
+Carisbrook (University Oval)	New Zealand	Dunedin	9016
+Castle Avenue (Clontarf)	Ireland	Dublin	D03 P442
+Central Broward Regional Park Stadium	United States	Lauderhill	33311
+Central Districts Cricket Trust Ground	New Zealand	Nelson	 
+Central Gujarat (IPCL) Ground	India	Vadodara	 
+Central Province Stadium (Dambulla)	Sri Lanka	Dambulla	 
+Chandigarh PCA Stadium (Mohali)	India	Mohali	160062
+Civil Service Cricket Club (Stormont)	Northern Ireland	Belfast	BT4 3TA
+City Oval	South Africa	Pietermaritzburg	 
+Colombo Cricket Club Ground	Sri Lanka	Colombo	1000
+County Ground, Beckenham	England	Beckenham	 
+County Ground, Bristol	England	Bristol	BS7 9EJ
+County Ground, Chelmsford	England	Chelmsford	CM2 0PG
+County Ground, Derby	England	Derby	DE21 6DA
+County Ground, Hove (Sussex)	England	Hove	BN3 3AN
+County Ground, Northampton	England	Northampton	NN1 4PR
+County Ground, Taunton	England	Taunton	TA1 1JT
+Darren Sammy National Cricket Stadium (Beausejour)	Saint Lucia	Gros Islet	 
+Davies Park (Queenstown Events Centre)	New Zealand	Queenstown	9300
+De Beers Diamond Oval	South Africa	Kimberley	 
+Delhi Arun Jaitley Stadium (Feroz Shah Kotla)	India	Delhi	110002
+Dennis Compton Oval (Lord's Nursery)	England	London	NW8 8QN
+Dubai International Cricket Stadium	United Arab Emirates	Dubai	
+Eden Gardens	India	Kolkata	700021
+Eden Park	New Zealand	Auckland	1010
+Edgbaston (County Ground, Birmingham)	England	Birmingham	B5 7QU
+Entebbe Cricket Oval	Uganda	Entebbe	 
+Gaddafi Stadium	Pakistan	Lahore	54000
+Gahanga International Cricket Stadium	Rwanda	Kigali	 
+Gandhi Stadium (Jalandhar)	India	Jalandhar	144001
+Galle International Stadium	Sri Lanka	Galle	80000
+Garden Oval, Benoni	South Africa	Benoni	 
+Garrison Savannah (Boone Hall)	Barbados	Bridgetown	 
+George V Sports Ground, Castel	Guernsey	Castel	GY5
+Gimhana (Gymkhana) Club Ground, Dar es Salaam	Tanzania	Dar-es-Salaam	 
+Gimhana (Gymkhana) Club Ground, Nairobi	Kenya	Nairobi	 
+Goodyear Park	South Africa	Bloemfontein	 
+Grainville (St Saviour)	Jersey	St Saviour	JE2 7HQ
+Green Park	India	Kanpur	208001
+Greenfield International Stadium	India	Thiruvananthapuram	695583
+Grange Cricket Club Ground (Raeburn Place)	Scotland	Edinburgh	EH4 1HQ
+Harare Sports Club	Zimbabwe	Harare	 
+Haryana Cricket Association Ground	India	Lahli	 
+Headingley (Emerald Headingley)	England	Leeds	LS6 3DP
+Himachal Pradesh (HPCA) Stadium	India	Dharamshala	176215
+Holkar Cricket Stadium	India	Indore	452003
+Iqbal Stadium	Pakistan	Faisalabad	 
+Jade Stadium (Lancaster Park)	New Zealand	Christchurch	8011
+Jaffery Sports Club Ground	Kenya	Nairobi	 
+Jawaharlal Nehru Stadium (Fatorda)	India	Margao	403602
+Jawaharlal Nehru Stadium (Kochi)	India	Kochi	682020
+Jawaharlal Nehru Stadium (Shillong)	India	Shillong	793001
+Jimmy Powell Oval	Cayman Islands	George Town	KY1-1002
+Jinnah Stadium (Gujranwala)	Pakistan	Gujranwala	 
+Jinnah Stadium (Sialkot)	Pakistan	Sialkot	 
+Jubilee Oval (Kingsmead)	South Africa	Durban	4001
+Kapchenge Valley (Ruaraka) Sports Club Ground	Kenya	Nairobi	 
+Kensington Oval	Barbados	Bridgetown	 
+Keenan Stadium	India	Jamshedpur	831001
+Kinrara Academy Oval	Malaysia	Kuala Lumpur	43000
+Kinrara Academy Oval (Kuala Lumpur)	Malaysia	Kuala Lumpur	43000
+Kingsmead	South Africa	Durban	4001
+Kings Park Stadium, Durban (Greyville)	South Africa	Durban	4001
+Kwekwe Sports Club	Zimbabwe	Kwekwe	 
+La Manga Club (Spain)	Spain	Cartagena (Murcia)	 
+Lahore City Cricket Association Ground	Pakistan	Lahore	54000
+Lord's Cricket Ground (Marylebone)	England	London	NW8 8QN
+Lugogo Cricket Oval	Uganda	Kampala	 
+MA Chidambaram Stadium (Chepauk)	India	Chennai	600005
+MA Aziz Stadium	Bangladesh	Chittagong	4000
+Madhavrao Scindia Cricket Ground	India	Rajkot	360001
+Mangaung Oval (OUTsurance Oval)	South Africa	Bloemfontein	 
+Maple Leaf Cricket Club Ground	Canada	King City	L7B 1K4
+Marrara Cricket Ground	Australia	Darwin	820
+Marsa Sports Club	Malta	Marsa	 
+McLean Park	New Zealand	Napier	4110
+Melbourne Cricket Ground (MCG)	Australia	Melbourne	3002
+Multan Cricket Stadium	Pakistan	Multan	60000
+National Cricket Stadium (St George's)	Grenada	St George's	 
+National Stadium, Karachi	Pakistan	Karachi	74000
+National Stadium, Hamilton	Bermuda	Hamilton	HM 12
+Nahar Singh Stadium	India	Faridabad	121001
+Narendra Modi Stadium (Sardar Patel Stadium)	India	Ahmedabad	380002
+Narayanganj Osmani Stadium (Fatullah)	Bangladesh	Narayanganj	1420
+Niaz Stadium	Pakistan	Hyderabad	71000
+Newlands	South Africa	Cape Town	8001
+New Road, Worcester	England	Worcester	WR2 4QQ
+New Wanderers Stadium (The Wanderers)	South Africa	Johannesburg	2196
+Nondescripts Cricket Club Ground	Sri Lanka	Colombo	1000
+North West Cricket Stadium (Senwes Park)	South Africa	Potchefstroom	 
+Old Trafford (Emirates Old Trafford)	England	Manchester	M16 0PX
+P. Sara Oval (Colombo Oval)	Sri Lanka	Colombo	1000
+Pallekele International Cricket Stadium	Sri Lanka	Pallekele	 
+Punjab Cricket Association IS Bindra Stadium	India	Mohali	160059
+Queen's Park Oval	Trinidad and Tobago	Port of Spain	 
+Queen's Sports Club	Zimbabwe	Bulawayo	 
+Queens Park (New) – Grenada National Stadium	Grenada	St George's	 
+Qaddafi Stadium (see Gaddafi Stadium)	Pakistan	Lahore	54000
+Rajiv Gandhi International Stadium (Uppal)	India	Hyderabad	500039
+Rangiri Dambulla International Stadium	Sri Lanka	Dambulla	 
+Rawalpindi Cricket Stadium	Pakistan	Rawalpindi	46000
+Sabina Park	Jamaica	Kingston	 
+Saxton Oval	New Zealand	Nelson	 
+Seddon Park	New Zealand	Hamilton	3204
+Sharjah Cricket Association Stadium	United Arab Emirates	Sharjah	
+Shere Bangla National Stadium (Mirpur)	Bangladesh	Dhaka	1216
+Sheikh Zayed Stadium	United Arab Emirates	Abu Dhabi	
+Sher-e-Bangla National Cricket Stadium (see Shere Bangla)	Bangladesh	Dhaka	1216
+Sinhalese Sports Club (SSC) Ground	Sri Lanka	Colombo	1000
+Sir Vivian Richards Stadium	Antigua and Barbuda	North Sound	 
+Sophia Gardens (SWALEC Stadium)	Wales	Cardiff	CF11 9XR
+St George's Park (Port Elizabeth)	South Africa	Gqeberha	6001
+SuperSport Park (Centurion)	South Africa	Centurion	 
+Sydney Cricket Ground (SCG)	Australia	Sydney	2021
+Sylhet International Cricket Stadium	Bangladesh	Sylhet	3100
+Ted Horwood Reserve	Australia	Sydney (Baulkham Hills)	 
+Titwood (Clydesdale CC Ground)	Scotland	Glasgow	G42 8BZ
+Trafalgar Park (Nelson)	New Zealand	Nelson	7010
+Trent Bridge (Nottingham)	England	Nottingham	NG2 6AG
+Tribhuvan University International Cricket Ground	Nepal	Kirtipur	 
+United Cricket Club Ground (Windhoek)	Namibia	Windhoek	 
+VRA Cricket Ground	Netherlands	Amstelveen	1182 DA
+Wanderers Cricket Ground (Windhoek)	Namibia	Windhoek	 
+Warner Park (St Kitts)	Saint Kitts and Nevis	Basseterre	 
+Wankhede Stadium	India	Mumbai	400020
+Willowmoore Park	South Africa	Benoni	 
+Windsor Park	Dominica	Roseau	 
+W.A.C.A. Ground (WACA)	Australia	Perth	6000
+YMCA Cricket Club, Dublin	Ireland	Dublin	D04 F1X2
+Zahur Ahmed Chowdhury Stadium	Bangladesh	Chattogram	4217

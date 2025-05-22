@@ -1,0 +1,140 @@
+# Guru Gyan rAi – Full App Build Instructions for Developer
+
+Dear Replit Team,
+
+Please develop the full-featured offline-capable cricket match prediction app as per the instructions below. All required CSV files are already provided in the `/cricket/data/` folder. The application must be built from scratch using React (frontend), Node.js/Express (backend), and must run independently of Replit-specific dependencies.
+
+---
+
+## 1. App Name:
+Guru Gyan rAi  
+(*To be used across all visible areas and console/logs*)
+
+## 2. Logo:
+File: `rAi.png`  
+- Place on the home splash screen and top-left of the main dashboard.
+
+---
+
+## 3. Home Page & UI Expectations:
+- Include animated splash screen like: “Initializing Predictive AI Engine…”
+- Load a futuristic dashboard UI (inspired by Matrix/NASA), dark theme.
+- Include system boot-like loading before showing filters.
+
+---
+
+## 4. Inputs Required on Main Dashboard (Part 1: Pre-Match Prediction):
+- **Team A** (auto-suggest from `Teams.csv`, NOT dropdown)
+- **Team B** (same logic)
+- **Match Format** (ODI / T20)
+- **Gender** (Male / Female)
+- **Match Date** (Date Picker)
+- **Stadium** (Auto-suggested from all match files like T20.csv, ODI.csv)
+
+→ Note: All suggestions should be dynamic based on available CSVs, not hardcoded or dropdown.
+
+---
+
+## 5. Inputs Required on Part 2 Dashboard (Post 1st-Inning):
+Same as above + one field:
+- **Team A Score** (e.g., 179)
+
+---
+
+## 6. CSV Files & Folder:
+Path: `/server/cricket/data/`
+
+Includes:
+- ODI.csv
+- T20.csv
+- BBL T20.csv
+- Index.csv
+- Teams.csv
+- team colors.csv
+- day colors.csv
+
+→ Parse `Index.csv` at runtime to determine which files to use based on selected Format + Gender.
+
+→ Match file names and logic exactly as per `Project Roadmap CricketMatchPredi.txt`.
+
+---
+
+## 7. Prediction Flow Logic:
+Defined clearly in:
+- `Project Roadmap CricketMatchPredi.txt`
+- `# Web Application Enhancement Roadm.txt`
+
+Please follow all logic including:
+- Head-to-head analysis
+- Stadium-based trends
+- Color theory (jersey vs weekday)
+- Season/month-based weight
+- Post-score digit pattern
+- Color clash, similar-color performance
+
+Final result must be:
+Guru Gyan Prediction says:
+India's winning chances in this T20 Match are 64%, and England's chances is just 36%.
+
+---
+
+## 8. Admin Panel + User Login Features:
+- User registration, login, password change
+- Each user sees their previous predictions
+- Admin can create users, view user activity
+- Real-time messaging (User ↔ Admin) using polling (NO Webhooks)
+- Use token-based authentication (JWT)
+- Store message and history in local file or database
+
+---
+
+## 9. Weather Widget:
+- Use OpenWeatherMap API (free version)
+- Extract city from Stadium Name
+- If T20: show rain probability for next 4 hours
+- If ODI: show rain probability for next 10 hours
+
+Display like:
+Weather Advisory:
+Rain Probability in Mumbai (next 4 hrs): 35%
+
+---
+
+## 10. Visual Enhancements:
+- Right panel should NOT show search breakdown
+- Instead show cricket-like system logs:
+  - “Scanning pitch condition…”
+  - “Checking boundary length…”
+  - “Analyzing ground dimensions…”
+  - “Evaluating dew conditions…”
+
+All logs must look technical and animated (simulate deep AI processing).
+
+---
+
+## 11. Styling Guidelines:
+- Theme: Dark with neon green / blue highlights
+- Font: Orbitron or Roboto Mono
+- No dropdowns – only smart autocomplete inputs
+- Show radar-style search animation during processing
+- Final result must glow with subtle animation
+
+---
+
+## 12. General Instructions:
+- NO Replit dependencies (no .replit, .nix)
+- Must run standalone on localhost or AWS
+- Modular file structure
+- Frontend in React (with Tailwind preferred)
+- Backend in Node.js/Express
+- CSV parsing using any robust method (fs, fast-csv, etc.)
+
+---
+
+## BONUS:
+If time permits, add export button to save prediction as PDF/screenshot.
+
+---
+
+Thank you,
+Aakash Rai (Creator)

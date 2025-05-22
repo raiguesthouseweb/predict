@@ -1,0 +1,219 @@
+# Match Prediction Logic Guide
+
+This guide outlines the prediction logic behind the Guru Gyan rAi Cricket Match Prediction Dashboard. It uses historical match data from `Categorized_Match_List.xlsx` and multiple logic layers including team color theory, venue strength, and weekday-based performance.
+
+---
+
+## ⚙️ Prediction Modes
+
+The web app supports two prediction modes:
+
+* **Pre-Match Prediction**
+* **Inning Break Prediction** *(Logic for this is not covered here yet)*
+
+---
+
+## 🔍 Pre-Match Prediction Inputs
+
+User must fill in:
+
+* Team A Name (required)
+* Team B Name (required)
+* Match Format (T20 / ODI) (required)
+* Gender (Male / Female) (required)
+* Match Date (optional, defaults to today)
+* League Name (optional, default = ALL)
+* Stadium (optional)
+
+---
+
+## 📊 Prediction Steps
+
+### 1. Identify Match Day
+
+* From the Match Date, calculate day of the week (e.g., `2025-05-21` → Wednesday)
+* Get color(s) associated with that day from `Day Colors` sheet (Column A: Day, Column B: Color Name, Column C: Hex Code)
+
+### 2. Analyze Team A Color Match
+
+* Get Team A jersey and flag colors from `Team Colors` sheet:
+
+  * Column C: Jersey Main
+  * Column D–E: Jersey Alt colors
+  * Column F–K: Flag colors
+
+* Match day colors with jersey/flag colors:
+
+  * ✅ 70%+ match with Jersey Main (Col C) → 100% weight
+  * ✅ 30%+ match with Jersey Alt (Col D/E) → 60% weight
+  * ✅ 25%±5% match with Flag Colors → 30% weight
+
+### 3. Repeat Color Analysis for Team B
+
+Same process for Team B using its row in `Team Colors`.
+
+---
+
+### 4. Filter Relevant Sheets
+
+If league is not selected (i.e. `ALL`):
+
+* Use Match Format and Gender to filter sheets via `Index` sheet:
+
+  * Column A: Format
+  * Column B: Gender
+  * Column D: League Name
+
+---
+
+### 5. Team’s Weekday Performance
+
+* For Team A:
+
+  * Total matches on that weekday
+  * Total wins → calculate weekday win %
+* For Team B:
+
+  * Same process
+
+### 6. Head-to-Head Weekday Analysis
+
+* Team A vs Team B matches played **only on that weekday**
+* Who won more matches on that day
+
+### 6.1 Extended Head-to-Head Analysis (Impact-Based)
+- **High Impact**: Head-to-Head matches on selected **weekday** (any stadium)
+- **Moderate Impact**: Head-to-Head matches at selected **stadium** (any weekday)
+- **Normal Impact**: Head-to-Head matches on **any day** and **any stadium**
+
+---
+
+### 7. Venue-Based Performance
+
+If Stadium selected:
+
+* **High Impact**: Matches on selected day at selected stadium for each team
+* **Moderate Impact**: All matches at that stadium for each team
+
+---
+
+### 8. Final Score Calculation
+
+Average all factors:
+
+* Color Impact
+* Weekday History
+* Head-to-Head on that day
+* Venue Performance
+
+Display final weighted prediction for each team.
+
+---
+
+## ✅ Normalization
+
+* Normalize `Female` and `Women` to a common gender tag
+* Normalize team names like `USA` and `United States of America`, `UAE` and `United Arab Emirates`
+
+---
+
+## 📌 Notes
+
+* Hex color comparison should support 70%+ matching logic (can use color distance formulas)
+* Stadium suggestions should work with either country name or partial stadium characters
+* Dropdown for leagues must be dynamically populated from `Index` sheet, Column D
+
+---
+
+This logic ensures a data-driven, explainable, and customizable prediction system that evolves as historical data grows.
+
+
+
+
+Now Inning Break Prediction Time
+User input
+Team A name and Team B name (Team A is Alwasy should be Bat First Team)
+Match Format = T20 or ODI
+Gender = Male Or Women
+Match Date = (eg. 21-05-2025)
+League name = (eg. All)
+Stadium Name = (eg. Wankhede)
+Team A Score = (eg. 183)
+
+Now Calculation Time, When user hit the Start Prediction Button
+
+## 📊 Prediction Steps
+
+### 1. Identify Match Day
+
+* From the Match Date, calculate day of the week (e.g., `2025-05-21` → Wednesday)
+* Get color(s) associated with that day from `Day Colors` sheet (Column A: Day, Column B: Color Name, Column C: Hex Code)
+
+### 2. Analyze Team A Color Match
+
+* Get Team A jersey and flag colors from `Team Colors` sheet:
+
+  * Column C: Jersey Main
+  * Column D–E: Jersey Alt colors
+  * Column F–K: Flag colors
+
+* Match day colors with jersey/flag colors:
+
+  * ✅ 70%+ match with Jersey Main (Col C) → 100% weight
+  * ✅ 30%+ match with Jersey Alt (Col D/E) → 60% weight
+  * ✅ 25%±5% match with Flag Colors → 30% weight
+
+### 3. Repeat Color Analysis for Team B
+
+Same process for Team B using its row in `Team Colors`.
+
+---
+
+### 4. Filter Relevant Sheets
+
+If league is not selected (i.e. `ALL`):
+
+* Use Match Format and Gender to filter sheets via `Index` sheet:
+
+  * Column A: Format
+  * Column B: Gender
+  * Column D: League Name
+
+---
+
+### 5. Team’s Weekday Performance
+
+* For Team A:
+
+  * Total matches on that weekday
+  * Total wins → calculate weekday win %
+* For Team B:
+
+  * Same process
+
+### 6. Head-to-Head Weekday Analysis
+
+* Team A vs Team B matches played **only on that weekday**
+* Who won more matches on that day
+
+### 6.1 Extended Head-to-Head Analysis (Impact-Based)
+- **High Impact**: Head-to-Head matches on selected **weekday** (any stadium)
+- **Moderate Impact**: Head-to-Head matches at selected **stadium** (any weekday)
+- **Normal Impact**: Head-to-Head matches on **any day** and **any stadium**
+
+---
+
+### 7. Venue-Based Performance
+
+If Stadium selected:
+
+* **High Impact**: Matches on selected day at selected stadium for each team
+* **Moderate Impact**: All matches at that stadium for each team
+
+8. How many times Team A (Bat First) Team score 183 and successfully Defend this score in the league name provided by the user. (High Impact)
+9. How many times any team who bat first and score 183 and successfully defend and win the match in a user provided league. (Very High Impact)
+10. How many times any team who bat first and score 183 and successfully defend and win the match in any league or International match but in same format and same gender (Very High Impact)
+11. Now we calculate the score in our own way (eg. score is 183, so 1+8+3=12, so we use the last digit only which is 2) now we search on every macth in this league as well as every match in this format which is provided by the user.
+	the column name is DIGIT (for T20 it is Column K and for ODI it is Column Q) find the same digit in this column or check karna hai ki same digit ke matches me kitni baad Bat First ne Target Score ko Defend kiya or kitni baar chase kiya,
+	Lekin agar T20 me Score 143 se kam hai aur ODI me 243 se kam hai to is step ko Bypass karenge. (Very HIgh Impact)
+
